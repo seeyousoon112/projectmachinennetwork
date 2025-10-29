@@ -32,7 +32,6 @@ questions = [
 ]
 
 def init_database():
-    """Инициализация базы данных с правильной структурой"""
     connection = sqlite3.connect('base.sql')
     curr = connection.cursor()
     
@@ -55,9 +54,7 @@ def init_database():
     curr.close()
     connection.close()
 
-def is_admin(user_id):
-    """Проверяет, является ли пользователь администратором"""
-
+def is_admin(user_id): 
     try:
         user_id_int = int(user_id)
     except (ValueError, TypeError):
@@ -100,7 +97,7 @@ def start(message):
 
 @bot.message_handler(commands=['myid'])
 def show_my_id(message):
-    """Показывает ID пользователя"""
+
     user_id = message.from_user.id
     first_name = message.from_user.first_name
     last_name = message.from_user.last_name
@@ -113,14 +110,12 @@ ID: {user_id}
 Фамилия: {last_name if last_name else 'не указана'}
 Username: @{username if username else 'не указан'}
 
-Этот ID нужно добавить в список ADMIN_USER_IDS в коде бота.
 Текущие администраторы: {ADMIN_USER_IDS}
 """
     bot.send_message(message.chat.id, info_message)
 
 @bot.message_handler(commands=['debug_admin'])
 def debug_admin(message):
-    """Команда для отладки проверки администратора"""
     user_id = message.from_user.id
     admin_status = is_admin(user_id)
     
@@ -135,7 +130,6 @@ def debug_admin(message):
 
 @bot.message_handler(func=lambda message: True)
 def handle_all_messages(message):
-    """Обработчик всех текстовых сообщений"""
     user_id = message.from_user.id
     text = message.text
     
@@ -242,7 +236,6 @@ def clear_statistics(message):
         start(message)  
 
 def show_statistics(message):
-    """Показывает общую статистику всех пользователей (только для админов)"""
     connection = sqlite3.connect('base.sql')
     curr = connection.cursor()
     
@@ -326,7 +319,6 @@ def ask_question(chat_id, user_id):
         finish_test(chat_id, user_id)
 
 def handle_test_answer(message):
-    """Обрабатывает ответы на вопросы теста"""
     user_id = message.from_user.id
     
 
