@@ -1,4 +1,3 @@
-
 import telebot 
 import webbrowser
 from telebot import types
@@ -14,21 +13,21 @@ ADMIN_USER_IDS = [1892368075,706043482,980013497]
 
 
 questions = [
-    {"question": "Вопрос 1: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 0},
-    {"question": "Вопрос 2: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 2},
-    {"question": "Вопрос 3: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 3},
-    {"question": "Вопрос 4: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 1},
-    {"question": "Вопрос 5: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 3},
-    {"question": "Вопрос 6: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 2},
-    {"question": "Вопрос 7: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 0},
-    {"question": "Вопрос 8: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 3},
-    {"question": "Вопрос 9: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 2},
-    {"question": "Вопрос 10: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 2},
-    {"question": "Вопрос 11: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 1},
-    {"question": "Вопрос 12: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 0},
-    {"question": "Вопрос 13: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 3},
-    {"question": "Вопрос 14: Сосал?", "options": ["Да", "Да", "Да", "Да"], "correct": 1},
-    {"question": "Вопрос 15: Сколько?", "options": ["5", "10", "15", "20"], "correct": 0}
+    {"question": "Вопрос 1: Что такое сетевой протокол?", "options": ["Аппаратный компонент", "Сетевое устройство", "Набор правил для обмена данными", "Программа для интернета"], "correct": 2},
+    {"question": "Вопрос 2: Основные элементы сети?", "options": ["Процессор, память, диск", "Протокол, узел, шлюз", "Браузер, сайт, сервер", "Кабель, роутер, модем"], "correct": 1},
+    {"question": "Вопрос 3: Функция шлюза?", "options": ["Защита сети", "Ускорение данных", "Соединение сетей", "Раздача Wi-Fi"], "correct": 2},
+    {"question": "Вопрос 4: Отличие OSI и TCP/IP?", "options": ["OSI - практическая", "Разное число уровней", "OSI - теоретическая", "Разные области применения"], "correct": 2},
+    {"question": "Вопрос 5: Верхние уровни OSI?", "options": ["Физический, канальный", "Прикладной, представительный, сеансовый", "Транспортный, сетевой", "Сетевой, прикладной"], "correct": 1},
+    {"question": "Вопрос 6: Задача транспортного уровня?", "options": ["Преобразование сигналов", "Маршрутизация", "Доставка между приложениями", "Управление подключениями"], "correct": 2},
+    {"question": "Вопрос 7: Преимущества TCP/IP?", "options": ["Больше уровней", "Лучшая безопасность", "Практичность, простота", "Только для локальных сетей"], "correct": 2},
+    {"question": "Вопрос 8: Отличие TCP и UDP?", "options": ["TCP быстрее", "TCP с соединением", "TCP для видео", "Разные уровни"], "correct": 1},
+    {"question": "Вопрос 9: Функция протокола IP?", "options": ["Шифрование", "Преобразование имён", "Адресация пакетов", "Управление подключением"], "correct": 2},
+    {"question": "Вопрос 10: Что такое VPN?", "options": ["Видеопротокол", "Доменная система", "Защищённое соединение", "Тип Wi-Fi"], "correct": 2},
+    {"question": "Вопрос 11: Проприетарные vs скрытые протоколы??", "options": ["Открытые vs защищённые", "Корпоративные vs анонимные", "Быстрые vs медленные", "Синонимы"], "correct": 1},
+    {"question": "Вопрос 12: Организация по стандартизации?", "options": ["IEEE", "IETF", "ISO", "W3C"], "correct": 1},
+    {"question": "Вопрос 13: Инструмент визуализации?", "options": ["Photoshop", "Miro", "Word", "PowerPoint"], "correct": 1},
+    {"question": "Вопрос 14: Методы визуализации в проекте?", "options": ["Только текст", "Диаграммы и таблицы", "Фотографии", "Видео"], "correct": 1},
+    {"question": "Вопрос 15: Где предпочтителен TCP?", "options": ["Онлайн-игры", "Веб-страницы, почта", "VoIP телефония", "Видеотрансляции"], "correct": 1}
 ]
 
 def init_database():
@@ -77,6 +76,10 @@ def start(message):
 
     user_id = message.from_user.id
     print(f"Пользователь {user_id} запустил бота")
+    
+    if user_id in user_data:
+        del user_data[user_id]
+        print(f"Данные пользователя {user_id} сброшены")
     
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton('Начать тест')
@@ -144,6 +147,10 @@ def handle_all_messages(message):
             return
     
     if text == 'Начать тест':
+        if user_id in user_data:
+            del user_data[user_id]
+            print(f"Данные пользователя {user_id} сброшены перед началом теста")
+        
         msg = bot.send_message(message.chat.id, 'Перед началом теста, пожалуйста, введите ваше имя:')
         bot.register_next_step_handler(msg, process_name)
     
@@ -407,6 +414,10 @@ def finish_test(chat_id, user_id):
     start_by_chat_id(chat_id, user_id)
 
 def start_by_chat_id(chat_id, user_id):
+    if user_id in user_data:
+        del user_data[user_id]
+        print(f"Данные пользователя {user_id} сброшены в start_by_chat_id")
+    
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton('Начать тест')
     btn2 = types.KeyboardButton('Информация о проекте')
