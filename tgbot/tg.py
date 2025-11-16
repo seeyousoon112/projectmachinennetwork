@@ -6,7 +6,7 @@ import sqlite3
 from datetime import datetime
 import os
 
-bot = telebot.TeleBot('7988519669:AAEd2F3RaVR3ez4Vi6bWdcdu9LbV5F3pmeY')
+bot = telebot.TeleBot()
 
 user_data = {}
 
