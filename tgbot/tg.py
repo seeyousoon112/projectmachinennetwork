@@ -8,8 +8,8 @@ from datetime import datetime
 import os
 import json
 
-bot = telebot.TeleBot()
-bot = telebot.TeleBot()
+bot = telebot.TeleBot('7988519669:AAGzmVZQel2uNgF0YLrDmhQ1dICujxCqvuQ')
+
 
 user_data = {}
 
